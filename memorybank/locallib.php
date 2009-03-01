@@ -104,7 +104,7 @@ function print_main_page($instid,$action='a')
 	$thecategory = 0;
 	$id = optional_param('id',0);
 	
-//    $qcount = count_records_select('memorybank_schedule',"userid = {$USER->id} AND nextviewing <= {$currenttime}");
+    $qcount = count_records_select('memorybank_schedule',"userid = {$USER->id} AND nextviewing <= {$currenttime}");
 
 
     $select = "SELECT s.*";
@@ -117,7 +117,8 @@ function print_main_page($instid,$action='a')
 
     $sql = $select.$from.$where.$order;
     if (!$schedules = get_records_sql($sql)) {
-        echo('No questions');
+       // echo('Error: No questions');
+		//die;
     }
     else
     {
@@ -129,12 +130,10 @@ function print_main_page($instid,$action='a')
         $where = " WHERE q.id = {$schedule->questionid}";
         $order = " ORDER BY q.id DESC";
         $limit = " LIMIT 1";
-
-
-    $sql = $select.$from.$where.$order.$limit;
+		$sql = $select.$from.$where.$order.$limit;
          
         if (!$questions = get_records_sql($sql)) {
-            echo('Questions missing');
+            echo('ERROR: Questions missing');
         }
         foreach ($questions as $question) {
             break;
@@ -151,10 +150,10 @@ function print_main_page($instid,$action='a')
 		$thecategory = $question->modid;
     }
     $catlock = optional_param('catlock','false')=='true'; 
-    $catmenu = choose_from_menu(category_menu(), 'category',$thecategory,'All categories','','0',true,$catlock);
+    $catmenu = choose_from_menu(category_menu(), 'category',$thecategory,get_string('all_categories', 'memorybank'),'','0',true,$catlock);
 	$isteacher = false;
 	global $USER;
-	echo $USER->username;
+	//echo $USER->username;
 	//echo $CFG->mod_memorybank_teachers;
 	$teachers = array('ganderson', 'bwoodman', 'admin','dchapin','connorgrosnick');
 	//echo(count($teachers));
@@ -181,7 +180,7 @@ function schedule_question($question)
 
     if(!$question->question)
     {
-        echo ('no question here!');
+        echo ('ERROR: no question here!');
 
         return; //Temp fix
     }
@@ -237,7 +236,7 @@ function print_edit_page($instid,$action='a')
     $limit;
      
     if (!$questions = get_records_sql($sql)) {
-        echo('Questions missing');
+        echo('ERROR: Questions missing');
     }
     foreach ($questions as $question) {
         break;

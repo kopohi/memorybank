@@ -219,7 +219,7 @@ function print_memorybank_report1($instid, $course = false)
 	require_once $CFG->libdir . '/tablelib.php';
 
     $tablecolumns = array('commands', 'id', 'question', 'number_of_answers', 'average_score');
-	$tableheaders = array('Commands', 'question id', 'question text', 'number of times answered', 'average score');
+	$tableheaders = array(get_string('commands', 'memorybank'), get_string('question_id', 'memorybank'), get_string('question_text', 'memorybank'),get_string('number_of_answers', 'memorybank'),get_string('average_score', 'memorybank'));
 	$table = new flexible_table('memorybank_report1');
 	$table->define_columns($tablecolumns);
 	$table->define_headers($tableheaders);
@@ -306,7 +306,7 @@ function print_memorybank_report2($instid, $course = false)
 	require_once $CFG->libdir . '/tablelib.php';
 
     $tablecolumns = array('lastname', 'last_access', 'average_score','number_of_questions');
-	$tableheaders = array('Name', 'Last access', 'Average score','Number of questions scheduled');
+	$tableheaders = array(get_string('name', 'memorybank'), get_string('last_access', 'memorybank'), get_string('average_score', 'memorybank'),get_string('number_of_questions', 'memorybank'));
 	$table = new flexible_table('memorybank_report2');
 	$table->define_columns($tablecolumns);
 	$table->define_headers($tableheaders);
@@ -392,6 +392,8 @@ function print_memorybank_report3($qid)
                   
     $tablecolumns = array('id', 'username', 'grade', 'timeanswered', 'currenthalflife');
 	$tableheaders = array('answer id', 'student', 'grade', 'date', 'halflife, days');
+	$tableheaders = array(get_string('answer_id', 'memorybank'), get_string('student', 'memorybank'), get_string('grade', 'memorybank'),get_string('date', 'memorybank'),get_string('halflife', 'memorybank'));
+	
 	$table = new flexible_table('memorybank_report3');
 	$table->define_columns($tablecolumns);
 	$table->define_headers($tableheaders);

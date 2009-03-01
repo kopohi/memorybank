@@ -52,7 +52,7 @@ if(empty($id) && empty($instid)){
     } 
     if ($qid) {
         if (! $memorybank_bank = get_record("memorybank_bank", "id", $qid)) {
-            error("Question is incorrect");
+            error("Question id is incorrect");
         }
         if (! $course = get_record("course", "id", $memorybank_bank->courseid)) {
             error("Course is misconfigured");
@@ -78,7 +78,7 @@ if(empty($id) && empty($instid)){
 		{
 			global $FULLME;
 			if(empty($deleteconfirmed)){
-		notice_yesno('Are you sure you want to delete this card?',
+		notice_yesno(get_string("ask_delete_item", "memorybank"),
                                    strip_querystring($FULLME)."?instid=$memorybank->id&qid=$qid&what=delete&deleteconfirmed=true",
                                     strip_querystring($FULLME)."?instid=$memorybank->id&qid=$qid");
 							  }else
@@ -121,21 +121,21 @@ if(empty($id) && empty($instid)){
 		}
 		if($what==='questionlist')
 		{
-            $navlinks[] = array('name' => 'Questions report', 'link' => '', 'type' => '');
+            $navlinks[] = array('name' => get_string("question_report", "memorybank"), 'link' => '', 'type' => '');
             $navigation = build_navigation($navlinks);
         	print_header_simple('report','',$navigation,'',"<meta http-equiv='Refresh' content='30;$FULLME'>");
 			print_memorybank_report1($memorybank->id, $course);
 		}
 		if($what==='answerlist')
 		{
-            $navlinks[] = array('name' => 'Answers report', 'link' => '', 'type' => '');
+            $navlinks[] = array('name' => get_string("answer_report", "memorybank"), 'link' => '', 'type' => '');
             $navigation = build_navigation($navlinks);
         	print_header_simple('report','',$navigation,'',"<meta http-equiv='Refresh' content='30;$FULLME'>");
 			print_memorybank_report3($qid);
 		}
 		if($what==='studentlist')
 		{
-            $navlinks[] = array('name' => 'Students report', 'link' => '', 'type' => '');
+            $navlinks[] = array('name' => get_string("student_report", "memorybank"), 'link' => '', 'type' => '');
             $navigation = build_navigation($navlinks);
         	print_header_simple('report','',$navigation,'',"<meta http-equiv='Refresh' content='30;$FULLME'>");
 			print_memorybank_report2($memorybank->id, $course);
