@@ -52,12 +52,15 @@ echo $lockbutton;
 <input name="qid" type="hidden" value="<?php echo ($qid); ?>" />
 </form>
 <?php 
-
-if(empty($qcount) && !empty($isteacher))
+//die('question count'.$qcount);
+//if(empty($qcount) && empty($isteacher))
+if(empty($qcount))
 	{
-		print_heading('You have complete all scheduled questions at this time!  Check back after 3PM.');
+//die('question counta'.$qcount);
+		print_heading(get_string('questions_completed','memorybank',userdate(nextViewingDay(),'%H:%M')));
+
     		global $CFG,$COURSE;
-    		redirect($CFG->wwwroot, 'Return to SeattleAcademy.net',10);
+    		redirect($CFG->wwwroot, get_string('return_to_moodle','memorybank',"<a href=$CFG->wwwroot>$CFG->wwwroot</a>"),10);
 	} else
 	{?>
 <div class="myquestionlegend"><?php echo get_string('question')?></div>
